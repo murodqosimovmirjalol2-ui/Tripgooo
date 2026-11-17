@@ -1,104 +1,600 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TRIPGO — Sayohat olami</title>
+
 <style>
-:root {
-  --bg:#101311;
-  --panel:#191e1a;
-  --green:#064e3b;
-  --green2:#0b7255;
-  --mint:#a8e4cb;
-  --text:#f3f7f3;
-  --muted:#a1aaa3;
-  --orange:#f5a623;
+:root{
+ --bg:#101411;
+ --card:#191f1b;
+ --green:#075b43;
+ --green2:#0b7959;
+ --mint:#a8e4c5;
+ --text:#f1f5f2;
+ --muted:#9ba89f;
+ --orange:#ffb34c;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  background:var(--bg);color:var(--text);
-  font-family:Arial,sans-serif;padding-bottom:85px;
+ background:var(--bg);color:var(--text);
+ font-family:Arial,sans-serif;padding-bottom:85px;
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer;border:0}
 header{
-  height:70px;padding:0 5%;display:flex;
-  align-items:center;justify-content:space-between;
-  background:#111612;position:sticky;top:0;z-index:20;
-  border-bottom:1px solid #ffffff12;
+ height:70px;padding:0 20px;display:flex;
+ align-items:center;justify-content:space-between;
+ background:#111713;position:sticky;top:0;z-index:20;
+ border-bottom:1px solid #ffffff15;
 }
-.logo{font-size:27px;font-weight:900;letter-spacing:-1px}
-.logo span{color:var(--mint)}
-.header-right{display:flex;gap:10px;align-items:center}
+.logo{font-size:28px;font-weight:900;color:#fff}
+.logo span{color:var(--orange)}
 .btn{
-  background:var(--green);color:white;padding:12px 17px;
-  border-radius:12px;font-weight:bold;
+ background:var(--green);color:white;
+ padding:12px 17px;border-radius:12px;font-weight:bold;
 }
 .btn:hover{background:var(--green2)}
-.container{max-width:1150px;margin:auto;padding:22px 20px}
+.container{max-width:1150px;margin:auto;padding:20px}
 .page{display:none}
 .page.active{display:block}
 .hero{
-  min-height:320px;border-radius:25px;padding:35px;
-  display:flex;align-items:center;
-  background:linear-gradient(90deg,#071c15ed,#071c1550),
-  url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400') center/cover;
+ min-height:300px;border-radius:24px;padding:30px;
+ display:flex;align-items:center;
+ background:linear-gradient(90deg,#001c16e8,#001c1650),
+ url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400") center/cover;
 }
-.hero-content{max-width:580px}
-.hero h1{font-size:38px;line-height:1.2;margin-bottom:14px}
-.hero p{color:#d4e7dc;line-height:1.6;margin-bottom:20px}
-.search{
-  display:flex;gap:8px;background:#ffffff18;
-  padding:8px;border-radius:15px;max-width:500px;
-}
+.hero h1{font-size:36px;max-width:550px;margin:15px 0}
+.hero p{color:#d2e4d8;line-height:1.6}
+.search{display:flex;gap:8px;margin-top:20px;max-width:500px}
 .search input{
-  flex:1;min-width:0;background:#fff;color:#222;
-  border:0;border-radius:10px;padding:14px;
+ flex:1;min-width:0;padding:14px;border:0;
+ border-radius:10px;color:#222;
 }
-.section{margin-top:35px}
+.section{margin-top:32px}
 .section-head{
-  display:flex;justify-content:space-between;
-  align-items:end;gap:12px;margin-bottom:17px;
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;margin-bottom:17px;
 }
-.section h2{font-size:25px}
 .section-head p{color:var(--muted);margin-top:7px}
 .tag{
-  background:#17382c;color:var(--mint);
-  padding:8px 12px;border-radius:30px;font-size:12px;
-  font-weight:bold;white-space:nowrap;
+ background:#203b2d;color:var(--mint);
+ padding:8px 12px;border-radius:20px;font-size:12px;
 }
-.tabs{
-  display:flex;gap:10px;overflow-x:auto;
-  padding:8px 0 17px;scrollbar-width:none;
-}
+.tabs{display:flex;gap:10px;overflow-x:auto;margin:20px 0}
 .tabs button{
-  flex-shrink:0;background:#202420;color:#cbd5ce;
-  padding:12px 18px;border-radius:30px;
+ white-space:nowrap;background:#202622;color:#ddd;
+ padding:12px 17px;border-radius:25px;
 }
 .tabs button.active{background:var(--green);color:white}
 .grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:17px;
 }
 .card{
-  background:var(--panel);border:1px solid #ffffff0d;
-  border-radius:21px;overflow:hidden;
+ background:var(--card);border-radius:21px;
+ overflow:hidden;border:1px solid #ffffff12;
 }
-.card img{width:100%;height:190px;object-fit:cover;display:block}
-.card-body{padding:16px}
-.card h3{font-size:18px;margin:10px 0}
-.card p{color:var(--muted);font-size:14px;line-height:1.5}
-.price{font-size:21px;font-weight:800;margin:15px 0;color:var(--mint)}
-.card .btn{width:100%;margin-top:7px}
+.card img{width:100%;height:185px;object-fit:cover;display:block}
+.card-body{padding:15px}
+.card h3{font-size:17px;margin:9px 0}
+.card p{color:var(--muted);font-size:14px;line-height:1.5;margin:6px 0}
+.price{font-size:20px;font-weight:900;color:var(--mint);margin:13px 0}
+.card .btn{width:100%;margin-top:8px}
 .chip{
-  display:inline-block;background:#20352a;color:var(--mint);
-  padding:7px 12px;border-radius:20px;font-size:12px;
+ display:inline-block;background:#203c2e;color:var(--mint);
+ padding:7px 11px;border-radius:20px;font-size:12px;
 }
-.feature-row{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:12px;margin-top:20px;
+.panel{
+ background:var(--card);padding:20px;border-radius:18px;
+ margin:18px 0;border:1px solid #ffffff12;
 }
-.feature{
-  background:var(--panel);padding:18px;border-radius:16px;
-  text-align:center;color:var(--mint);
+.panel input,.panel select,.panel textarea{
+ width:100%;padding:13px;margin:8px 0 14px;
+ border-radius:10px;border:1px solid #47544b;
+ background:#252d27;color:white;
+}
+label{font-size:14px;color:#c9d8ce}
+.bottom-nav{
+ position:fixed;bottom:0;left:0;right:0;
+ display:flex;justify-content:space-around;
+ background:#111713;border-top:1px solid #ffffff20;
+ padding:10px 2px calc(10px + env(safe-area-inset-bottom));
+ z-index:30;
+}
+.bottom-nav button{
+ background:none;color:#9ba89f;
+ display:flex;flex-direction:column;align-items:center;
+ gap:5px;font-size:12px;min-width:55px;
+}
+.bottom-nav button span{font-size:22px}
+.bottom-nav button.active{color:var(--mint);font-weight:bold}
+.cart-float{
+ position:fixed;right:12px;bottom:90px;
+ background:#075b20;color:white;border-radius:25px;
+ padding:13px 17px;z-index:15;font-weight:bold;
+}
+.heart{
+ background:#303a33;color:#ff8c9c;
+ border-radius:20px;padding:9px 12px;
+}
+.heart.liked{background:#652d3b}
+.modal-bg{
+ display:none;position:fixed;inset:0;background:#000b;
+ z-index:50;align-items:center;justify-content:center;padding:15px;
+}
+.modal{
+ background:#1b241e;width:100%;max-width:420px;
+ max-height:85vh;overflow:auto;padding:22px;border-radius:20px;
+}
+.modal input{
+ width:100%;padding:12px;margin:8px 0 14px;
+ background:#29332c;color:white;border:1px solid #536156;
+ border-radius:10px;
+}
+.close{float:right;background:#303a33;color:white;padding:8px 12px;border-radius:20px}
+.muted{color:var(--muted)}
+.empty{text-align:center;padding:30px;color:var(--muted)}
+footer{text-align:center;padding:30px;color:#8e9a91}
+@media(max-width:760px){
+ .container{padding:16px 13px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .card img{height:135px}
+ .card-body{padding:11px}
+ .card h3{font-size:15px}
+ .card p{font-size:12px}
+ .price{font-size:17px}
+ .hero{min-height:280px;padding:22px}
+ .hero h1{font-size:29px}
+ .section-head h2{font-size:21px}
+}
+@media(max-width:390px){
+ .grid{grid-template-columns:1fr}
+ .card img{height:190px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">TRIP<span>GO</span></div>
+ <button class="btn" onclick="openProfile()">👤 Kabinet</button>
+</header>
+
+<main class="container">
+
+<!-- SAYOHATLAR -->
+<section id="tours" class="page active">
+ <div class="hero">
+  <div>
+   <span class="chip">✈ TRIPGO TRAVEL</span>
+   <h1>Yangi manzillar, unutilmas taassurotlar!</h1>
+   <p>O‘zbekistonning go‘zal maskanlarini biz bilan kashf eting.</p>
+   <div class="search">
+    <input id="tourSearch" placeholder="Qayerga sayohat qilmoqchisiz?">
+    <button class="btn" onclick="searchTours()">Qidirish</button>
+   </div>
+  </div>
+ </div>
+
+ <div class="tabs">
+  <button class="active" onclick="filterTours('all',this)">✈ Barchasi</button>
+  <button onclick="filterTours('nature',this)">🌲 Tabiat</button>
+  <button onclick="filterTours('history',this)">🏛 Tarixiy</button>
+  <button onclick="filterTours('relax',this)">🏖 Dam olish</button>
+ </div>
+
+ <div class="section">
+  <div class="section-head">
+   <div><h2>Ommabop sayohatlar</h2><p>O‘zingizga mos manzilni tanlang</p></div>
+   <span class="tag">TRIPGO TRAVEL</span>
+  </div>
+  <div class="grid" id="tourGrid"></div>
+ </div>
+</section>
+
+<!-- OB-HAVO -->
+<section id="weather" class="page">
+ <div class="section">
+  <h2>🌤 Ob-havo</h2>
+  <p class="muted">Sayohat oldidan ob-havoni tekshiring.</p>
+ </div>
+ <div class="panel">
+  <label>Shaharni tanlang</label>
+  <select id="city">
+   <option value="41.2995,69.2401">Toshkent</option>
+   <option value="39.6542,66.9597">Samarqand</option>
+   <option value="40.1039,67.8422">Jizzax</option>
+   <option value="41.5500,60.6333">Xiva</option>
+   <option value="39.7747,64.4286">Buxoro</option>
+   <option value="41.5833,60.6333">Urganch</option>
+  </select>
+  <button class="btn" onclick="getWeather()">Ob-havoni ko‘rish</button>
+  <div class="panel" id="weatherResult">
+   Shaharni tanlang va ob-havo ma’lumotini oling.
+  </div>
+ </div>
+</section>
+
+<!-- MARKET -->
+<section id="market" class="page">
+ <div class="section-head">
+  <div><h2>🛍 Sayohat marketi</h2><p>Safar uchun kerakli mahsulotlar</p></div>
+  <span class="tag">TRIPGO MARKET</span>
+ </div>
+
+ <div class="tabs">
+  <button class="active" onclick="filterMarket('all',this)">Barchasi</button>
+  <button onclick="filterMarket('sumka',this)">🎒 Sumkalar</button>
+  <button onclick="filterMarket('kiyim',this)">👕 Kiyimlar</button>
+  <button onclick="filterMarket('oziq',this)">🥪 Oziq-ovqat</button>
+  <button onclick="filterMarket('boshqa',this)">🎒 Aksessuarlar</button>
+ </div>
+
+ <div class="grid" id="marketGrid"></div>
+
+ <div class="panel">
+  <h2>🛒 Savat</h2>
+  <div id="cartItems" class="muted" style="margin-top:12px">Savat bo‘sh.</div>
+  <h3 class="price" id="cartTotal">Jami: 0 so‘m</h3>
+  <button class="btn" onclick="sendOrder()">Buyurtma berish</button>
+  <p class="muted" style="margin-top:12px">Onlayn to‘lov — tez kunda.</p>
+ </div>
+</section>
+
+<!-- XOTIRALAR -->
+<section id="memories" class="page">
+ <div class="section">
+  <h2>📸 Sayohat xotiralari</h2>
+  <p class="muted">Sayohatlaringizni boshqalar bilan baham ko‘ring.</p>
+ </div>
+
+ <div class="panel">
+  <h3>Yangi xotira joylash</h3>
+  <input id="memoryImage" type="file" accept="image/*">
+  <input id="memoryPlace" placeholder="Manzil: masalan, Chorvoq">
+  <input id="memoryDate" type="date">
+  <input id="memoryCaption" placeholder="Surat haqida yozing">
+  <button class="btn" onclick="addMemory()">Joylash</button>
+ </div>
+
+ <div class="section-head">
+  <div><h2>Sayohatchilar albomi</h2><p>Eng yaxshi taassurotlar</p></div>
+  <span class="tag">HAFTA PIKASSOSI 🏆</span>
+ </div>
+ <div class="grid" id="memoryGrid"></div>
+</section>
+
+<!-- PROFIL -->
+<section id="profile" class="page">
+ <h2>👤 Shaxsiy kabinet</h2>
+ <div class="panel" id="profileContent"></div>
+</section>
+
+</main>
+
+<div class="cart-float" onclick="showPage('market')">
+ 🛒 Savat (<span id="cartCount">0</span>)
+</div>
+
+<nav class="bottom-nav">
+ <button class="active" onclick="showPage('tours',this)"><span>✈️</span>Sayohat</button>
+ <button onclick="showPage('weather',this)"><span>☀️</span>Ob-havo</button>
+ <button onclick="showPage('market',this)"><span>🛍️</span>Market</button>
+ <button onclick="showPage('memories',this)"><span>📸</span>Xotiralar</button>
+ <button onclick="openProfile()"><span>👤</span>Profil</button>
+</nav>
+
+<div class="modal-bg" id="profileModal">
+ <div class="modal">
+  <button class="close" onclick="closeProfile()">✕</button>
+  <h2 id="authTitle">Ro‘yxatdan o‘tish</h2>
+
+  <div id="registerForm">
+   <input id="firstName" placeholder="Ismingiz">
+   <input id="lastName" placeholder="Familiyangiz">
+   <input id="phone" placeholder="Telefon raqam">
+   <input id="password" type="password" placeholder="Parol">
+   <button class="btn" style="width:100%" onclick="register()">Ro‘yxatdan o‘tish</button>
+   <p style="margin-top:15px">Akkauntingiz bormi?
+    <a href="#" onclick="toggleAuth(false)">Kirish</a>
+   </p>
+  </div>
+
+  <div id="loginForm" style="display:none">
+   <input id="loginPhone" placeholder="Telefon raqam">
+   <input id="loginPassword" type="password" placeholder="Parol">
+   <button class="btn" style="width:100%" onclick="login()">Kirish</button>
+   <p style="margin-top:15px">Akkauntingiz yo‘qmi?
+    <a href="#" onclick="toggleAuth(true)">Ro‘yxatdan o‘tish</a>
+   </p>
+  </div>
+  <p id="authMessage" class="muted" style="margin-top:12px"></p>
+ </div>
+</div>
+
+<footer>© 2026 TRIPGO. Sayohatni biz bilan boshlang.</footer>
+
+<script>
+const tours=[
+ {name:"Chimyon tog‘lari",place:"Toshkent viloyati",price:250000,type:"nature",days:"1 kun",image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700"},
+ {name:"Chorvoq",place:"Toshkent viloyati",price:220000,type:"relax",days:"1 kun",image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700"},
+ {name:"Samarqand",place:"Samarqand",price:300000,type:"history",days:"2 kun",image:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=700"},
+ {name:"Buxoro safari",place:"Buxoro",price:350000,type:"history",days:"2 kun",image:"https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?w=700"},
+ {name:"Xiva sayohati",place:"Xorazm",price:400000,type:"history",days:"2 kun",image:"https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=700"},
+ {name:"Zomin tog‘lari",place:"Jizzax",price:280000,type:"nature",days:"1 kun",image:"https://images.unsplash.com/photo-1511497584788-876760111969?w=700"},
+ {name:"Aydarko‘l",place:"Navoiy",price:320000,type:"relax",days:"2 kun",image:"https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=700"},
+ {name:"Shahrisabz",place:"Qashqadaryo",price:330000,type:"history",days:"1 kun",image:"https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700"},
+ {name:"Farg‘ona vodiysi",place:"Farg‘ona",price:290000,type:"nature",days:"2 kun",image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700"}
+];
+
+const products=[
+ {name:"Sayohat ryukzagi",price:180000,type:"sumka",image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600"},
+ {name:"Katta sayohat sumkasi",price:240000,type:"sumka",image:"https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=600"},
+ {name:"Sport ryukzak",price:145000,type:"sumka",image:"https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=600"},
+ {name:"Sayohat futbolkasi",price:90000,type:"kiyim",image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600"},
+ {name:"Yengil kurtka",price:220000,type:"kiyim",image:"https://images.unsplash.com/photo-1544923246-77307dd654cb?w=600"},
+ {name:"Sport kepka",price:65000,type:"kiyim",image:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600"},
+ {name:"Suv idishi",price:35000,type:"boshqa",image:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600"},
+ {name:"Termos",price:85000,type:"boshqa",image:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600"},
+ {name:"Sayohat ko‘zoynagi",price:75000,type:"boshqa",image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600"},
+ {name:"Yo‘l uchun yegulik",price:25000,type:"oziq",image:"https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600"},
+ {name:"Quruq mevalar",price:30000,type:"oziq",image:"https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?w=600"},
+ {name:"Suv to‘plami",price:18000,type:"oziq",image:"https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600"}
+];
+
+let cart=[];
+let currentUser=JSON.parse(localStorage.getItem("tg_user")||"null");
+
+function money(n){return Number(n).toLocaleString("uz-UZ")+" so‘m"}
+
+function showPage(id,button){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
+ else document.querySelectorAll(".bottom-nav button").forEach((b,i)=>{
+  if(["tours","weather","market","memories"].indexOf(id)===i)b.classList.add("active");
+ });
+ if(id==="profile")renderProfile();
+ window.scrollTo(0,0);
+}
+
+function renderTours(list=tours){
+ document.getElementById("tourGrid").innerHTML=list.map((t,i)=>`
+ <div class="card">
+  <img src="${t.image}" alt="${t.name}">
+  <div class="card-body">
+   <span class="chip">${t.type==="nature"?"Tabiat":t.type==="history"?"Tarixiy":"Dam olish"}</span>
+   <h3>${t.name}</h3>
+   <p>📍 ${t.place}</p>
+   <p>🗓 ${t.days}</p>
+   <div class="price">${money(t.price)}</div>
+   <button class="btn" onclick="bookTour(${tours.indexOf(t)})">Batafsil</button>
+  </div>
+ </div>`).join("");
+}
+
+function filterTours(type,button){
+ document.querySelectorAll("#tours .tabs button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderTours(type==="all"?tours:tours.filter(t=>t.type===type));
+}
+
+function searchTours(){
+ const q=document.getElementById("tourSearch").value.toLowerCase();
+ renderTours(tours.filter(t=>(t.name+" "+t.place).toLowerCase().includes(q)));
+}
+
+function bookTour(i){
+ const t=tours[i];
+ alert(t.name+"\nManzil: "+t.place+"\nNarx: "+money(t.price)+"\nDavomiyligi: "+t.days+"\n\nBuyurtma uchun administrator bilan bog‘laning.");
+}
+
+function renderMarket(list=products){
+ document.getElementById("marketGrid").innerHTML=list.map(p=>`
+ <div class="card">
+  <img src="${p.image}" alt="${p.name}">
+  <div class="card-body">
+   <h3>${p.name}</h3>
+   <div class="price">${money(p.price)}</div>
+   <button class="btn" onclick="addCart('${p.name}')">Savatga qo‘shish</button>
+  </div>
+ </div>`).join("");
+}
+
+function filterMarket(type,button){
+ document.querySelectorAll("#market .tabs button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderMarket(type==="all"?products:products.filter(p=>p.type===type));
+}
+
+function addCart(name){
+ const p=products.find(x=>x.name===name);
+ cart.push(p);
+ renderCart();
+ alert(name+" savatga qo‘shildi!");
+}
+
+function renderCart(){
+ document.getElementById("cartCount").textContent=cart.length;
+ document.getElementById("cartItems").innerHTML=cart.length?
+ cart.map((p,i)=>`${i+1}. ${p.name} — ${money(p.price)} <button onclick="removeCart(${i})">✕</button>`).join("<br>"):
+ "Savat bo‘sh.";
+ document.getElementById("cartTotal").textContent="Jami: "+money(cart.reduce((s,p)=>s+p.price,0));
+}
+
+function removeCart(i){cart.splice(i,1);renderCart()}
+
+function sendOrder(){
+ if(!cart.length){alert("Savat bo‘sh!");return}
+ const text="TRIPGO MARKET BUYURTMASI\n"+
+ cart.map((p,i)=>(i+1)+". "+p.name+" — "+money(p.price)).join("\n")+
+ "\nJami: "+money(cart.reduce((s,p)=>s+p.price,0));
+ if(navigator.clipboard)navigator.clipboard.writeText(text).catch(()=>{});
+ alert("Buyurtma matni tayyorlandi va nusxalandi. Uni administratorga yuborishingiz mumkin:\n\n"+text);
+}
+
+async function getWeather(){
+ const [lat,lon]=document.getElementById("city").value.split(",");
+ const box=document.getElementById("weatherResult");
+ box.textContent="Ob-havo yuklanmoqda...";
+ try{
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+  const response=await fetch(url);
+  const d=await response.json();
+  box.innerHTML=`
+   <h2>${d.current.temperature_2m}°C</h2>
+   <p>💧 Namlik: ${d.current.relative_humidity_2m}%</p>
+   <p>💨 Shamol: ${d.current.wind_speed_10m} km/soat</p>
+   <hr style="margin:15px 0;border-color:#ffffff22">
+   <h3>Keyingi kunlar</h3>
+   ${d.daily.time.map((day,i)=>`<p>${day}: ${d.daily.temperature_2m_min[i]}°C — ${d.daily.temperature_2m_max[i]}°C</p>`).join("")}`;
+ }catch(e){box.textContent="Ob-havo ma’lumotini olish imkoni bo‘lmadi."}
+}
+
+const sampleMemories=[
+ {place:"Chorvoq",date:"2026-08-12",caption:"Ajoyib dam olish kuni! 🌊",image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700",likes:[]},
+ {place:"Chimyon",date:"2026-07-20",caption:"Tog‘ havosi va go‘zal manzara 🏔️",image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700",likes:[]},
+ {place:"Samarqand",date:"2026-06-15",caption:"Tarix bilan yuzma-yuz",image:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=700",likes:[]},
+ {place:"Tabiat qo‘ynida",date:"2026-05-10",caption:"Unutilmas lahzalar 🌲",image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700",likes:[]},
+ {place:"Tog‘ sayohati",date:"2026-04-21",caption:"Yangi sarguzasht!",image:"https://images.unsplash.com/photo-1511497584788-876760111969?w=700",likes:[]},
+ {place:"Ko‘l bo‘yida",date:"2026-03-18",caption:"Sokinlik va go‘zallik",image:"https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=700",likes:[]}
+];
+
+function getMemories(){
+ return JSON.parse(localStorage.getItem("tg_memories")||"null")||sampleMemories;
+}
+
+function saveMemories(data){
+ localStorage.setItem("tg_memories",JSON.stringify(data));
+}
+
+function renderMemories(){
+ const memories=getMemories();
+ document.getElementById("memoryGrid").innerHTML=memories.map((m,i)=>`
+ <div class="card">
+  <img src="${m.image}" alt="${m.place}">
+  <div class="card-body">
+   <h3>${m.place}</h3>
+   <p>📅 ${m.date}</p>
+   <p>${m.caption||""}</p>
+   <button class="heart ${currentUser&&m.likes.includes(currentUser.phone)?"liked":""}" onclick="likeMemory(${i})">
+    ❤️ ${m.likes.length}
+   </button>
+  </div>
+ </div>`).join("");
+}
+
+function addMemory(){
+ if(!currentUser){alert("Xotira joylash uchun avval kabinetga kiring.");return}
+ const file=document.getElementById("memoryImage").files[0];
+ const place=document.getElementById("memoryPlace").value.trim();
+ const date=document.getElementById("memoryDate").value;
+ const caption=document.getElementById("memoryCaption").value.trim();
+ if(!file||!place||!date){alert("Rasm, manzil va sanani kiriting.");return}
+ if(file.size>2*1024*1024){alert("Rasm hajmi 2 MB dan oshmasin.");return}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  const memories=getMemories();
+  memories.unshift({image:reader.result,place,date,caption,likes:[],owner:currentUser.phone});
+  saveMemories(memories);
+  renderMemories();
+  alert("Xotira joylandi!");
+ };
+ reader.readAsDataURL(file);
+}
+
+function likeMemory(i){
+ if(!currentUser){alert("Like bosish uchun akkauntga kiring.");return}
+ const memories=getMemories();
+ const likes=memories[i].likes;
+ const index=likes.indexOf(currentUser.phone);
+ if(index>=0)likes.splice(index,1);
+ else likes.push(currentUser.phone);
+ saveMemories(memories);
+ renderMemories();
+}
+
+function openProfile(){
+ document.getElementById("profileModal").style.display="flex";
+ toggleAuth(true);
+}
+function closeProfile(){document.getElementById("profileModal").style.display="none"}
+
+function toggleAuth(register){
+ document.getElementById("registerForm").style.display=register?"block":"none";
+ document.getElementById("loginForm").style.display=register?"none":"block";
+ document.getElementById("authTitle").textContent=register?"Ro‘yxatdan o‘tish":"Akkauntga kirish";
+ document.getElementById("authMessage").textContent="";
+}
+
+function register(){
+ const first=document.getElementById("firstName").value.trim();
+ const last=document.getElementById("lastName").value.trim();
+ const phone=document.getElementById("phone").value.trim();
+ const password=document.getElementById("password").value;
+ if(!first||!last||!phone||!password){authMessage("Barcha maydonlarni to‘ldiring.");return}
+ if(password.length<8){authMessage("Parol kamida 8 ta belgidan iborat bo‘lsin.");return}
+ const users=JSON.parse(localStorage.getItem("tg_users")||"[]");
+ if(users.some(u=>u.phone===phone)){authMessage("Bu raqam oldin ro‘yxatdan o‘tgan.");return}
+ users.push({first,last,phone,password});
+ localStorage.setItem("tg_users",JSON.stringify(users));
+ currentUser={first,last,phone};
+ localStorage.setItem("tg_user",JSON.stringify(currentUser));
+ closeProfile();
+ renderProfile();
+ showPage("profile");
+}
+
+function login(){
+ const phone=document.getElementById("loginPhone").value.trim();
+ const password=document.getElementById("loginPassword").value;
+ const users=JSON.parse(localStorage.getItem("tg_users")||"[]");
+ const user=users.find(u=>u.phone===phone&&u.password===password);
+ if(!user){authMessage("Telefon yoki parol noto‘g‘ri.");return}
+ currentUser={first:user.first,last:user.last,phone:user.phone};
+ localStorage.setItem("tg_user",JSON.stringify(currentUser));
+ closeProfile();
+ renderProfile();
+ showPage("profile");
+}
+
+function authMessage(msg){
+ document.getElementById("authMessage").textContent=msg;
+}
+
+function renderProfile(){
+ const box=document.getElementById("profileContent");
+ if(!currentUser){
+  box.innerHTML="<p>Akkauntga kirmagansiz.</p><button class='btn' onclick='openProfile()'>Kirish / Ro‘yxatdan o‘tish</button>";
+  return;
+ }
+ box.innerHTML=`
+  <h2>Salom, ${currentUser.first}!</h2>
+  <p style="margin:12px 0">👤 ${currentUser.first} ${currentUser.last}</p>
+  <p>📱 ${currentUser.phone}</p>
+  <button class="btn" style="margin-top:18px" onclick="logout()">Akkauntdan chiqish</button>`;
+}
+
+function logout(){
+ currentUser=null;
+ localStorage.removeItem("tg_user");
+ renderProfile();
+ showPage("tours");
+}
+
+function init(){
+ renderTours();
+ renderMarket();
+ renderCart();
+ renderMemories();
+ renderProfile();
+}
+init();
+</script>
+
+</body>
+</html>
