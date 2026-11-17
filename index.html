@@ -3,720 +3,536 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TRIPGO — Sayohatni tanla</title>
-
+<title>TRIPGO — Sayohat olami</title>
 <style>
 :root {
-  --green: #16866a;
-  --dark: #172b3a;
-  --muted: #667785;
-  --light: #f7faf9;
+  --primary:#5b5ce2;
+  --dark:#17182b;
+  --muted:#77798c;
+  --bg:#f5f6fb;
+  --white:#fff;
+  --radius:18px;
 }
-
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--dark)}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
+header{
+  background:#fff;padding:15px 5%;display:flex;
+  align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:10;
+  box-shadow:0 2px 15px #0000000a
 }
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--light);
-  color: var(--dark);
+.logo{font-size:25px;font-weight:900;color:var(--primary)}
+.logo span{color:#ff9b43}
+nav{display:flex;gap:20px}
+nav button{background:none;color:#555;font-weight:600}
+nav button.active{color:var(--primary)}
+.account-btn,.primary{
+  background:var(--primary);color:white;padding:12px 18px;
+  border-radius:12px;font-weight:bold
 }
-
-header {
-  background: white;
-  padding: 20px 6%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
+.container{max-width:1150px;margin:auto;padding:22px 18px}
+.hero{
+  min-height:270px;border-radius:25px;padding:35px;
+  color:white;display:flex;align-items:center;
+  background:linear-gradient(90deg,#17182bdc,#17182b40),
+  url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400') center/cover
 }
-
-.logo {
-  font-size: 27px;
-  font-weight: bold;
-  color: var(--green);
+.hero h1{font-size:36px;max-width:520px;margin-bottom:12px}
+.hero p{line-height:1.6;margin-bottom:20px}
+.section{margin-top:30px}
+.section h2{font-size:23px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{
+  background:white;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 5px 20px #00000008
 }
-
-.logo span {
-  color: var(--dark);
+.card img{width:100%;height:175px;object-fit:cover}
+.card-body{padding:16px}
+.card h3{margin-bottom:8px}
+.muted{color:var(--muted);font-size:14px;line-height:1.5}
+.price{color:var(--primary);font-weight:800;margin:12px 0}
+.card button{width:100%;margin-top:8px}
+.page{display:none}
+.page.active{display:block}
+.category-row{display:flex;gap:10px;overflow:auto;margin:15px 0}
+.category-row button{
+  white-space:nowrap;background:white;padding:11px 16px;
+  border-radius:30px;color:#555
 }
-
-nav {
-  display: flex;
-  gap: 20px;
+.category-row button.active{background:var(--primary);color:white}
+.panel{
+  background:white;padding:20px;border-radius:var(--radius);
+  margin-top:18px
 }
-
-nav a {
-  text-decoration: none;
-  color: var(--dark);
-  font-weight: bold;
+input,textarea,select{
+  width:100%;padding:13px;border:1px solid #e1e2eb;
+  border-radius:10px;margin:7px 0 14px;background:white
 }
-
-nav a:hover {
-  color: var(--green);
+label{font-size:14px;font-weight:bold}
+.modal-bg{
+  display:none;position:fixed;inset:0;background:#0008;
+  z-index:30;align-items:center;justify-content:center;padding:15px
 }
-
-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 25px;
+.modal{
+  background:white;padding:24px;border-radius:20px;
+  width:100%;max-width:420px;max-height:90vh;overflow:auto
 }
-
-.hero {
-  min-height: 400px;
-  border-radius: 20px;
-  padding: 50px;
-  display: flex;
-  align-items: center;
-  color: white;
-  background:
-    linear-gradient(90deg, #102b36dd, #102b3620),
-    url("https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600")
-    center/cover;
+.modal h2{margin-bottom:15px}
+.close{float:right;background:#eee;border-radius:50%;padding:7px 11px}
+.avatar{
+  width:75px;height:75px;border-radius:50%;object-fit:cover;
+  background:#eee;margin-bottom:10px
 }
-
-.hero-content {
-  max-width: 550px;
+footer{text-align:center;padding:30px;color:#888;font-size:13px}
+.empty{text-align:center;padding:35px;color:#888}
+@media(max-width:750px){
+  nav{gap:10px}
+  nav button{font-size:12px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .hero{min-height:240px;padding:24px}
+  .hero h1{font-size:28px}
 }
-
-.hero h1 {
-  font-size: 48px;
-}
-
-.hero p {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-button {
-  background: var(--green);
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 9px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover {
-  background: #106d56;
-}
-
-.section {
-  margin-top: 45px;
-}
-
-.section h2 {
-  font-size: 28px;
-}
-
-.subtitle {
-  color: var(--muted);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.card {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  border: 1px solid #e5ece9;
-}
-
-.card img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-}
-
-.card-body {
-  padding: 18px;
-}
-
-.card h3 {
-  margin-top: 10px;
-}
-
-.tag {
-  color: var(--green);
-  background: #eef7f3;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.price {
-  font-size: 19px;
-  font-weight: bold;
-  margin: 15px 0;
-}
-
-.panel {
-  background: white;
-  border-radius: 15px;
-  padding: 22px;
-  border: 1px solid #e5ece9;
-}
-
-.two {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 13px;
-  margin: 8px 0 15px;
-  border: 1px solid #dbe5e1;
-  border-radius: 8px;
-  font: inherit;
-}
-
-textarea {
-  min-height: 100px;
-}
-
-.proposal {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 0;
-  border-bottom: 1px solid #eee;
-}
-
-footer {
-  background: var(--dark);
-  color: white;
-  padding: 30px;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #0009;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal-box {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  max-width: 450px;
-  width: 100%;
-}
-
-@media(max-width: 800px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  nav {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-}
-
-@media(max-width: 600px) {
-  header {
-    display: block;
-  }
-
-  nav {
-    margin-top: 15px;
-  }
-
-  .grid, .two {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    padding: 25px;
-  }
-
-  .hero h1 {
-    font-size: 34px;
-  }
+@media(max-width:480px){
+  header{padding:13px}
+  .logo{font-size:21px}
+  nav{position:fixed;bottom:0;left:0;right:0;background:white;
+    padding:12px 5px;justify-content:space-around;
+    box-shadow:0 -3px 15px #0001}
+  nav button{font-size:11px}
+  .account-btn{padding:10px;font-size:12px}
+  .grid{grid-template-columns:1fr 1fr;gap:10px}
+  .card img{height:125px}
+  .card-body{padding:11px}
+  .card h3{font-size:14px}
+  .muted{font-size:12px}
+  .price{font-size:13px}
+  .container{padding-bottom:80px}
 }
 </style>
 </head>
-
 <body>
 
 <header>
   <div class="logo">TRIP<span>GO</span></div>
-
   <nav>
-    <a href="#home">Bosh sahifa</a>
-    <a href="#trips">Sayohatlar</a>
-    <a href="#ideas">Takliflar</a>
-    <a href="#albums">Albomlar</a>
-    <a href="#market">Market</a>
-    <a href="#profile">Profilim</a>
+    <button class="active" onclick="showPage('tours',this)">Sayohatlar</button>
+    <button onclick="showPage('weather',this)">Ob-havo</button>
+    <button onclick="showPage('market',this)">Market</button>
+    <button onclick="showPage('memories',this)">Xotiralar</button>
   </nav>
+  <button class="account-btn" onclick="openAccount()">Kabinet</button>
 </header>
 
-<main>
+<main class="container">
 
-<section class="hero" id="home">
-  <div class="hero-content">
-    <h1>Keyingi manzilingiz qayer?</h1>
+<section id="tours" class="page active">
+  <div class="hero">
+    <div>
+      <h1>Yangi manzillar, unutilmas taassurotlar!</h1>
+      <p>O‘zbekistonning go‘zal maskanlarini TRIPGO bilan kashf eting.</p>
+      <button class="primary" onclick="document.getElementById('tourList').scrollIntoView({behavior:'smooth'})">
+        Sayohatlarni ko‘rish
+      </button>
+    </div>
+  </div>
 
-    <p>
-      O‘zbekiston bo‘ylab bir kunlik sayohatlarni
-      kashf eting, o‘zingizga mos yo‘nalishni tanlang
-      va yangi xotiralar yarating.
-    </p>
-
-    <a href="#trips">
-      <button>Sayohatlarni ko‘rish</button>
-    </a>
+  <div class="section" id="tourList">
+    <h2>Rejalashtirilgan sayohatlar</h2>
+    <div class="grid" id="toursGrid"></div>
   </div>
 </section>
 
-<section class="section" id="trips">
-  <h2>Rejalashtirilgan sayohatlar</h2>
-  <p class="subtitle">O‘zingizga mos yo‘nalishni tanlang</p>
-
-  <div class="grid" id="tripGrid"></div>
-</section>
-
-<section class="section" id="ideas">
-  <h2>Sayohat takliflari</h2>
-  <p class="subtitle">
-    Keyingi safar qayerga borishni xohlaysiz?
-  </p>
-
-  <div class="two">
-
-    <div class="panel">
-      <h3>Yangi taklif yuborish</h3>
-
-      <label>Manzil nomi</label>
-      <input id="ideaName" placeholder="Masalan: Zomin tog‘lari">
-
-      <label>Taklifingiz haqida</label>
-      <textarea id="ideaText"
-        placeholder="Nima uchun shu joyga borish kerak?"></textarea>
-
-      <button onclick="addIdea()">Taklif yuborish</button>
+<section id="weather" class="page">
+  <h2>Ob-havo ma'lumoti</h2>
+  <div class="panel">
+    <label>Manzilni tanlang</label>
+    <select id="city">
+      <option value="41.2995,69.2401">Toshkent</option>
+      <option value="41.5500,60.6333">Xiva</option>
+      <option value="39.6542,66.9597">Samarqand</option>
+      <option value="40.1039,67.8422">Jizzax</option>
+      <option value="41.5833,60.6333">Urganch</option>
+    </select>
+    <button class="primary" onclick="getWeather()">Ob-havoni ko‘rish</button>
+    <div id="weatherResult" class="panel">
+      Shaharni tanlang va ob-havo ma'lumotini oling.
     </div>
-
-    <div class="panel">
-      <h3>Foydalanuvchilar takliflari</h3>
-      <div id="ideaList"></div>
-    </div>
-
   </div>
 </section>
 
-<section class="section" id="albums">
-  <h2>Sayohat albomlari</h2>
-  <p class="subtitle">O‘tgan safarlardan lavhalar</p>
-
-  <div class="grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=900">
-      <div class="card-body">
-        <span class="tag">Tarix</span>
-        <h3>Samarqand</h3>
-        <p>Registon va qadimiy obidalar</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900">
-      <div class="card-body">
-        <span class="tag">Tabiat</span>
-        <h3>Tog‘ sayohati</h3>
-        <p>Tabiat qo‘ynida unutilmas kun</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900">
-      <div class="card-body">
-        <span class="tag">Dam olish</span>
-        <h3>Ko‘l bo‘yida</h3>
-        <p>Do‘stlar bilan maroqli dam</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section class="section" id="market">
+<section id="market" class="page">
   <h2>Sayohat marketi</h2>
-  <p class="subtitle">
-    Safar uchun kerakli mahsulotlar
-  </p>
-
-  <div class="grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=900">
-      <div class="card-body">
-        <span class="tag">Sayohat jihozi</span>
-        <h3>Sayohat ryukzagi</h3>
-        <div class="price">249 000 so‘m</div>
-        <button onclick="addCart('Sayohat ryukzagi',249000)">
-          Savatga qo‘shish
-        </button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900">
-      <div class="card-body">
-        <span class="tag">Kiyim</span>
-        <h3>Sport oyoq kiyimi</h3>
-        <div class="price">399 000 so‘m</div>
-        <button onclick="addCart('Sport oyoq kiyimi',399000)">
-          Savatga qo‘shish
-        </button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=900">
-      <div class="card-body">
-        <span class="tag">Aksessuar</span>
-        <h3>Suv idishi</h3>
-        <div class="price">59 000 so‘m</div>
-        <button onclick="addCart('Suv idishi',59000)">
-          Savatga qo‘shish
-        </button>
-      </div>
-    </div>
-
+  <p class="muted">Sayohat uchun kerakli mahsulotlarni tanlang.</p>
+  <div class="category-row">
+    <button class="active" onclick="filterMarket('all',this)">Barchasi</button>
+    <button onclick="filterMarket('sumka',this)">Sumkalar</button>
+    <button onclick="filterMarket('kiyim',this)">Kiyimlar</button>
+    <button onclick="filterMarket('oziq',this)">Oziq-ovqat</button>
+    <button onclick="filterMarket('boshqa',this)">Aksessuarlar</button>
   </div>
-
-  <div class="panel" style="margin-top:20px">
+  <div class="grid" id="marketGrid"></div>
+  <div class="panel">
     <h3>Savat: <span id="cartCount">0</span> ta mahsulot</h3>
-    <div id="cartItems">Hozircha savat bo‘sh.</div>
-    <h3 id="cartTotal"></h3>
+    <div id="cartItems" class="muted">Savat hozircha bo‘sh.</div>
+    <h3 id="cartTotal" class="price">Jami: 0 so‘m</h3>
+    <button class="primary" onclick="sendOrder()">Buyurtma berish</button>
+    <p class="muted" style="margin-top:10px">Onlayn to‘lov — tez kunda.</p>
   </div>
 </section>
 
-<section class="section" id="profile">
-  <h2>Profilim</h2>
-  <p class="subtitle">Shaxsiy ma’lumotlar va bronlar</p>
-
-  <div class="two">
-
-    <div class="panel">
-      <h3>Shaxsiy ma’lumotlar</h3>
-
-      <label>Ismingiz</label>
-      <input id="userName" placeholder="Ism familiya">
-
-      <label>Telefon raqam</label>
-      <input id="userPhone" placeholder="+998 90 123 45 67">
-
-      <button onclick="saveProfile()">Saqlash</button>
-      <p id="profileStatus"></p>
-    </div>
-
-    <div class="panel">
-      <h3>Mening bronlarim</h3>
-      <div id="myBookings">Hozircha bron mavjud emas.</div>
-    </div>
-
+<section id="memories" class="page">
+  <h2>Sayohat xotiralari</h2>
+  <p class="muted">Sayohatingizdan surat ulashing va boshqalarning taassurotlarini ko‘ring.</p>
+  <div class="panel">
+    <h3>Yangi xotira qo‘shish</h3>
+    <input id="memoryImage" type="file" accept="image/*">
+    <input id="memoryPlace" placeholder="Manzil, masalan: Chorvoq">
+    <input id="memoryDate" type="date">
+    <textarea id="memoryText" placeholder="Sayohatingiz haqida yozing..."></textarea>
+    <button class="primary" onclick="addMemory()">Joylash</button>
   </div>
+  <div class="section">
+    <h2>Sayohatchilar albomi</h2>
+    <div class="grid" id="memoryGrid"></div>
+  </div>
+  <div class="panel">
+    <h3>🏆 Hafta Pikassosi</h3>
+    <p class="muted">Hafta davomida eng ko‘p yoqtirish olgan surat g‘olib bo‘ladi.</p>
+  </div>
+</section>
+
+<section id="profile" class="page">
+  <h2>Shaxsiy kabinet</h2>
+  <div class="panel" id="profileContent"></div>
 </section>
 
 </main>
 
-<footer>
-  TRIPGO · O‘zbekiston bo‘ylab sayohatni oson rejalashtiring
-</footer>
+<footer>© 2026 TRIPGO. Sayohatni biz bilan boshlang.</footer>
 
-<div class="modal" id="bookingModal">
-  <div class="modal-box">
-    <button onclick="closeModal()">Yopish</button>
+<div class="modal-bg" id="accountModal">
+  <div class="modal">
+    <button class="close" onclick="closeAccount()">✕</button>
+    <h2 id="modalTitle">TRIPGO akkaunt</h2>
 
-    <h2 id="modalTitle">Sayohatga bron</h2>
-    <p id="modalInfo"></p>
+    <div id="registerForm">
+      <label>Ismingiz</label>
+      <input id="firstName" placeholder="Ism">
+      <label>Familiyangiz</label>
+      <input id="lastName" placeholder="Familiya">
+      <label>Telefon raqam</label>
+      <input id="regPhone" placeholder="+998901234567" type="tel">
+      <label>Parol</label>
+      <input id="regPassword" type="password" placeholder="Kamida 8 ta belgi">
+      <label>Profil rasmi (ixtiyoriy)</label>
+      <input id="regAvatar" type="file" accept="image/*">
+      <button class="primary" style="width:100%" onclick="register()">Ro‘yxatdan o‘tish</button>
+      <p class="muted" style="margin-top:14px">Akkauntingiz bormi? <a href="#" onclick="toggleAuth(false)">Kirish</a></p>
+    </div>
 
-    <label>Ismingiz</label>
-    <input id="bookName" placeholder="Ism familiya">
-
-    <label>Telefon raqam</label>
-    <input id="bookPhone" placeholder="+998...">
-
-    <label>Odamlar soni</label>
-    <select id="people">
-      <option value="1">1 kishi</option>
-      <option value="2">2 kishi</option>
-      <option value="3">3 kishi</option>
-      <option value="4">4 kishi</option>
-      <option value="5">5 kishi</option>
-    </select>
-
-    <button onclick="confirmBooking()">
-      Bron so‘rovini yuborish
-    </button>
+    <div id="loginForm" style="display:none">
+      <label>Telefon raqam</label>
+      <input id="loginPhone" type="tel" placeholder="+998901234567">
+      <label>Parol</label>
+      <input id="loginPassword" type="password" placeholder="Parolingiz">
+      <button class="primary" style="width:100%" onclick="login()">Kirish</button>
+      <p class="muted" style="margin-top:14px">Akkauntingiz yo‘qmi? <a href="#" onclick="toggleAuth(true)">Ro‘yxatdan o‘tish</a></p>
+    </div>
+    <p id="authMessage" class="muted" style="margin-top:12px"></p>
   </div>
 </div>
 
 <script>
+const API = ""; // Server manzilini joylashtirganda kerak bo‘lsa o‘zgartiring.
+let token = localStorage.getItem("tripgo_token") || "";
+let currentUser = null;
+let cart = [];
 
-const trips = [
+const tours = [
   {
-    id: 1,
-    name: "Zomin tog‘lari",
-    place: "Jizzax viloyati",
-    price: 180000,
-    date: "Sana keyin belgilanadi",
-    type: "Tabiat",
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900",
-    description: "Tog‘ havosi va go‘zal tabiat qo‘ynida bir kun."
+    name:"Chimyon va Chorvoq",
+    place:"Toshkent viloyati",
+    price:250000,
+    date:"Har hafta",
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"
   },
   {
-    id: 2,
-    name: "Samarqand",
-    place: "Samarqand viloyati",
-    price: 220000,
-    date: "Sana keyin belgilanadi",
-    type: "Tarix",
-    image: "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=900",
-    description: "Tarixiy obidalar va qadimiy shahar bilan tanishing."
+    name:"Samarqand sayohati",
+    place:"Samarqand",
+    price:300000,
+    date:"Reja asosida",
+    image:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800"
   },
   {
-    id: 3,
-    name: "Chorvoq",
-    place: "Toshkent viloyati",
-    price: 160000,
-    date: "Sana keyin belgilanadi",
-    type: "Tabiat",
-    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=900",
-    description: "Suv va tog‘ manzaralari orasida hordiq chiqaring."
+    name:"Buxoro tarixiy safari",
+    place:"Buxoro",
+    price:350000,
+    date:"Reja asosida",
+    image:"https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?w=800"
   }
 ];
 
-let selectedTrip = null;
-let cart = JSON.parse(localStorage.getItem("tripgo_cart") || "[]");
+const products = [
+  {name:"Sayohat sumkasi",price:180000,type:"sumka",image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600"},
+  {name:"Sport ryukzak",price:145000,type:"sumka",image:"https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=600"},
+  {name:"Sayohat futbolkasi",price:90000,type:"kiyim",image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600"},
+  {name:"Yengil kurtka",price:220000,type:"kiyim",image:"https://images.unsplash.com/photo-1544923246-77307dd654cb?w=600"},
+  {name:"Suv idishi",price:35000,type:"boshqa",image:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600"},
+  {name:"Yo‘l uchun yegulik",price:25000,type:"oziq",image:"https://images.unsplash.com/photo-149れば"}
+];
 
-function money(number) {
-  return number.toLocaleString("uz-UZ") + " so‘m";
+function showPage(id,button){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  if(button)button.classList.add("active");
+  if(id==="profile")renderProfile();
 }
 
-function renderTrips() {
-  const grid = document.getElementById("tripGrid");
+function money(n){return Number(n).toLocaleString("uz-UZ")+" so‘m"}
 
-  grid.innerHTML = trips.map(trip => `
+function renderTours(){
+  document.getElementById("toursGrid").innerHTML=tours.map((t,i)=>`
     <div class="card">
-      <img src="${trip.image}" alt="${trip.name}">
-
+      <img src="${t.image}" alt="${t.name}">
       <div class="card-body">
-        <span class="tag">${trip.type}</span>
-
-        <h3>${trip.name}</h3>
-
-        <p>📍 ${trip.place}</p>
-        <p>📅 ${trip.date}</p>
-        <p>${trip.description}</p>
-
-        <div class="price">${money(trip.price)}</div>
-
-        <button onclick="openBooking(${trip.id})">
-          Batafsil / Bron
-        </button>
+        <h3>${t.name}</h3>
+        <p class="muted">📍 ${t.place}</p>
+        <p class="muted">📅 ${t.date}</p>
+        <div class="price">${money(t.price)}</div>
+        <button class="primary" onclick="bookTour(${i})">Batafsil / Buyurtma</button>
       </div>
-    </div>
-  `).join("");
+    </div>`).join("");
 }
 
-function openBooking(id) {
-  selectedTrip = trips.find(trip => trip.id === id);
-
-  document.getElementById("modalTitle").textContent =
-    selectedTrip.name;
-
-  document.getElementById("modalInfo").textContent =
-    selectedTrip.description + " Narxi: " + money(selectedTrip.price);
-
-  document.getElementById("bookingModal").style.display = "flex";
+function bookTour(i){
+  const t=tours[i];
+  alert(t.name+" — "+money(t.price)+". Buyurtma uchun administrator bilan bog‘laning.");
 }
 
-function closeModal() {
-  document.getElementById("bookingModal").style.display = "none";
+function renderMarket(items=products){
+  document.getElementById("marketGrid").innerHTML=items.map((p)=>{
+    const index=products.indexOf(p);
+    return `<div class="card">
+      <img src="${p.image}" alt="${p.name}">
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <div class="price">${money(p.price)}</div>
+        <button class="primary" onclick="addCart(${index})">Savatga qo‘shish</button>
+      </div>
+    </div>`;
+  }).join("");
 }
 
-function confirmBooking() {
-  const name = document.getElementById("bookName").value.trim();
-  const phone = document.getElementById("bookPhone").value.trim();
-  const people = Number(document.getElementById("people").value);
-
-  if (!name || !phone) {
-    alert("Ism va telefon raqamni kiriting.");
-    return;
-  }
-
-  let bookings = JSON.parse(
-    localStorage.getItem("tripgo_bookings") || "[]"
-  );
-
-  bookings.push({
-    name,
-    phone,
-    people,
-    trip: selectedTrip.name,
-    total: selectedTrip.price * people
-  });
-
-  localStorage.setItem("tripgo_bookings", JSON.stringify(bookings));
-
-  closeModal();
-  renderProfile();
-
-  alert("Bron so‘rovi saqlandi!");
+function filterMarket(type,button){
+  document.querySelectorAll(".category-row button").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  renderMarket(type==="all"?products:products.filter(p=>p.type===type));
 }
 
-function addIdea() {
-  const name = document.getElementById("ideaName").value.trim();
-  const description = document.getElementById("ideaText").value.trim();
-
-  if (!name) {
-    alert("Manzil nomini kiriting.");
-    return;
-  }
-
-  let ideas = JSON.parse(localStorage.getItem("tripgo_ideas") || "[]");
-
-  ideas.push({
-    name,
-    description,
-    votes: 0
-  });
-
-  localStorage.setItem("tripgo_ideas", JSON.stringify(ideas));
-
-  document.getElementById("ideaName").value = "";
-  document.getElementById("ideaText").value = "";
-
-  renderIdeas();
-}
-
-function voteIdea(index) {
-  let ideas = JSON.parse(localStorage.getItem("tripgo_ideas") || "[]");
-
-  ideas[index].votes++;
-
-  localStorage.setItem("tripgo_ideas", JSON.stringify(ideas));
-
-  renderIdeas();
-}
-
-function renderIdeas() {
-  let ideas = JSON.parse(localStorage.getItem("tripgo_ideas") || "[]");
-
-  document.getElementById("ideaList").innerHTML =
-    ideas.length
-      ? ideas.map((idea, index) => `
-          <div class="proposal">
-            <div>
-              <b>${idea.name}</b>
-              <p>${idea.description}</p>
-            </div>
-
-            <button onclick="voteIdea(${index})">
-              👍 ${idea.votes}
-            </button>
-          </div>
-        `).join("")
-      : "Hozircha takliflar yo‘q.";
-}
-
-function addCart(name, price) {
-  cart.push({name, price});
-
-  localStorage.setItem("tripgo_cart", JSON.stringify(cart));
-
+function addCart(i){
+  cart.push(products[i]);
   renderCart();
 }
 
-function removeCart(index) {
-  cart.splice(index, 1);
-
-  localStorage.setItem("tripgo_cart", JSON.stringify(cart));
-
-  renderCart();
+function renderCart(){
+  document.getElementById("cartCount").textContent=cart.length;
+  document.getElementById("cartItems").innerHTML=cart.length?
+    cart.map((p,i)=>`${i+1}. ${p.name} — ${money(p.price)}`).join("<br>"):
+    "Savat hozircha bo‘sh.";
+  document.getElementById("cartTotal").textContent="Jami: "+money(cart.reduce((s,p)=>s+p.price,0));
 }
 
-function renderCart() {
-  document.getElementById("cartCount").textContent = cart.length;
-
-  document.getElementById("cartItems").innerHTML =
-    cart.length
-      ? cart.map((item, index) => `
-          <p>
-            ${item.name} — ${money(item.price)}
-            <button onclick="removeCart(${index})">×</button>
-          </p>
-        `).join("")
-      : "Hozircha savat bo‘sh.";
-
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-
-  document.getElementById("cartTotal").textContent =
-    cart.length ? "Jami: " + money(total) : "";
+function sendOrder(){
+  if(!cart.length){alert("Avval mahsulot tanlang.");return}
+  const total=cart.reduce((s,p)=>s+p.price,0);
+  const message="TRIPGO MARKET BUYURTMASI\n"+
+    cart.map((p,i)=>(i+1)+". "+p.name+" — "+money(p.price)).join("\n")+
+    "\nJami: "+money(total);
+  alert("Buyurtma matni tayyor. Uni administratorga yuborish uchun nusxalang:\n\n"+message);
+  if(navigator.clipboard)navigator.clipboard.writeText(message).catch(()=>{});
 }
 
-function saveProfile() {
-  const profile = {
-    name: document.getElementById("userName").value,
-    phone: document.getElementById("userPhone").value
+async function getWeather(){
+  const [lat,lon]=document.getElementById("city").value.split(",");
+  const box=document.getElementById("weatherResult");
+  box.textContent="Ma'lumot yuklanmoqda...";
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+    const r=await fetch(url);
+    const d=await r.json();
+    box.innerHTML=`<h3>Hozirgi ob-havo</h3>
+      <h1>${d.current.temperature_2m}°C</h1>
+      <p>Namlik: ${d.current.relative_humidity_2m}%</p>
+      <p>Shamol: ${d.current.wind_speed_10m} km/soat</p>
+      <hr style="margin:15px 0">
+      <h3>Kunlik prognoz</h3>
+      ${d.daily.time.map((day,i)=>`<p>${day}: ${d.daily.temperature_2m_min[i]}°C — ${d.daily.temperature_2m_max[i]}°C</p>`).join("")}`;
+  }catch(e){box.textContent="Ob-havo ma'lumotini olishda xatolik yuz berdi."}
+}
+
+function addMemory(){
+  const file=document.getElementById("memoryImage").files[0];
+  const place=document.getElementById("memoryPlace").value.trim();
+  const date=document.getElementById("memoryDate").value;
+  const caption=document.getElementById("memoryText").value.trim();
+  if(!file||!place||!date){alert("Rasm, manzil va sanani kiriting.");return}
+  if(!currentUser){alert("Xotira joylash uchun avval akkauntga kiring.");return}
+  const reader=new FileReader();
+  reader.onload=()=>{
+    const memories=JSON.parse(localStorage.getItem("tripgo_memories")||"[]");
+    memories.unshift({image:reader.result,place,date,caption,likes:[],owner:currentUser.phone});
+    localStorage.setItem("tripgo_memories",JSON.stringify(memories));
+    renderMemories();
+    alert("Xotira demo albomiga joylandi.");
   };
-
-  localStorage.setItem("tripgo_profile", JSON.stringify(profile));
-
-  document.getElementById("profileStatus").textContent =
-    "Ma’lumotlar saqlandi.";
+  reader.readAsDataURL(file);
 }
 
-function renderProfile() {
-  const bookings = JSON.parse(
-    localStorage.getItem("tripgo_bookings") || "[]"
-  );
-
-  document.getElementById("myBookings").innerHTML =
-    bookings.length
-      ? bookings.map(booking => `
-          <p>
-            ${booking.trip} —
-            ${booking.people} kishi —
-            ${money(booking.total)}
-          </p>
-        `).join("")
-      : "Hozircha bron mavjud emas.";
-
-  const profile = JSON.parse(
-    localStorage.getItem("tripgo_profile") || "{}"
-  );
-
-  document.getElementById("userName").value = profile.name || "";
-  document.getElementById("userPhone").value = profile.phone || "";
+function renderMemories(){
+  const memories=JSON.parse(localStorage.getItem("tripgo_memories")||"[]");
+  document.getElementById("memoryGrid").innerHTML=memories.length?memories.map((m,i)=>`
+    <div class="card">
+      <img src="${m.image}" alt="Sayohat xotirasi">
+      <div class="card-body">
+        <h3>${m.place}</h3>
+        <p class="muted">${m.date}</p>
+        <p>${m.caption||""}</p>
+        <button class="primary" onclick="likeMemory(${i})">❤️ ${m.likes.length}</button>
+      </div>
+    </div>`).join(""):'<div class="empty">Hozircha xotiralar yo‘q.</div>';
 }
 
-renderTrips();
-renderIdeas();
-renderCart();
-renderProfile();
+function likeMemory(i){
+  if(!currentUser){alert("Yoqtirish uchun akkauntga kiring.");return}
+  const memories=JSON.parse(localStorage.getItem("tripgo_memories")||"[]");
+  const likes=memories[i].likes;
+  const index=likes.indexOf(currentUser.phone);
+  if(index>=0)likes.splice(index,1);else likes.push(currentUser.phone);
+  localStorage.setItem("tripgo_memories",JSON.stringify(memories));
+  renderMemories();
+}
 
+function openAccount(){
+  document.getElementById("accountModal").style.display="flex";
+  toggleAuth(true);
+}
+function closeAccount(){document.getElementById("accountModal").style.display="none"}
+function toggleAuth(reg){
+  document.getElementById("registerForm").style.display=reg?"block":"none";
+  document.getElementById("loginForm").style.display=reg?"none":"block";
+  document.getElementById("modalTitle").textContent=reg?"Ro‘yxatdan o‘tish":"Akkauntga kirish";
+  document.getElementById("authMessage").textContent="";
+}
+
+async function register(){
+  const first=document.getElementById("firstName").value.trim();
+  const last=document.getElementById("lastName").value.trim();
+  const phone=document.getElementById("regPhone").value.trim();
+  const password=document.getElementById("regPassword").value;
+  const avatar=document.getElementById("regAvatar").files[0];
+  if(!first||!last||!phone||!password){authMsg("Barcha majburiy maydonlarni to‘ldiring.");return}
+  if(password.length<8){authMsg("Parol kamida 8 ta belgidan iborat bo‘lsin.");return}
+  const form=new FormData();
+  form.append("first_name",first);
+  form.append("last_name",last);
+  form.append("phone",phone);
+  form.append("password",password);
+  if(avatar)form.append("avatar",avatar);
+  try{
+    const r=await fetch(API+"/api/register",{method:"POST",body:form});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.detail||"Ro‘yxatdan o‘tishda xatolik.");
+    token=d.access_token;
+    localStorage.setItem("tripgo_token",token);
+    await loadMe();
+    closeAccount();
+    showPage("profile");
+  }catch(e){authMsg(e.message)}
+}
+
+async function login(){
+  const form=new FormData();
+  form.append("phone",document.getElementById("loginPhone").value.trim());
+  form.append("password",document.getElementById("loginPassword").value);
+  try{
+    const r=await fetch(API+"/api/login",{method:"POST",body:form});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.detail||"Kirish amalga oshmadi.");
+    token=d.access_token;
+    localStorage.setItem("tripgo_token",token);
+    await loadMe();
+    closeAccount();
+    showPage("profile");
+  }catch(e){authMsg(e.message)}
+}
+
+function authMsg(msg){document.getElementById("authMessage").textContent=msg}
+
+async function loadMe(){
+  if(!token)return;
+  try{
+    const r=await fetch(API+"/api/me",{headers:{Authorization:"Bearer "+token}});
+    if(!r.ok)throw new Error();
+    currentUser=await r.json();
+  }catch(e){
+    token="";
+    currentUser=null;
+    localStorage.removeItem("tripgo_token");
+  }
+}
+
+function renderProfile(){
+  const box=document.getElementById("profileContent");
+  if(!currentUser){
+    box.innerHTML="<p>Akkauntga kirilmagan.</p><button class='primary' onclick='openAccount()'>Kirish / Ro‘yxatdan o‘tish</button>";
+    return;
+  }
+  const avatar=currentUser.avatar_url||"";
+  box.innerHTML=`
+    ${avatar?`<img class="avatar" src="${avatar}" alt="Profil rasmi">`:""}
+    <h2>${currentUser.first_name} ${currentUser.last_name}</h2>
+    <p class="muted">${currentUser.phone}</p>
+    <label>Profil rasmini yangilash</label>
+    <input id="newAvatar" type="file" accept="image/*">
+    <button class="primary" onclick="changeAvatar()">Rasmni yangilash</button>
+    <button style="background:#eee;padding:12px;border-radius:10px;margin-left:5px" onclick="logout()">Chiqish</button>`;
+}
+
+async function changeAvatar(){
+  const file=document.getElementById("newAvatar").files[0];
+  if(!file){alert("Avval rasm tanlang.");return}
+  const form=new FormData();
+  form.append("avatar",file);
+  try{
+    const r=await fetch(API+"/api/me/avatar",{
+      method:"POST",headers:{Authorization:"Bearer "+token},body:form
+    });
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.detail||"Rasmni yangilab bo‘lmadi.");
+    await loadMe();
+    renderProfile();
+    alert("Profil rasmi yangilandi.");
+  }catch(e){alert(e.message)}
+}
+
+function logout(){
+  token="";
+  currentUser=null;
+  localStorage.removeItem("tripgo_token");
+  renderProfile();
+}
+
+async function init(){
+  renderTours();
+  renderMarket();
+  renderCart();
+  renderMemories();
+  await loadMe();
+}
+init();
 </script>
-
 </body>
 </html>
